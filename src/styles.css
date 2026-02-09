@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  font-family: "Inter Tight", sans-serif;
+  background: radial-gradient(1200px 700px at 20% -10%, rgba(91, 140, 255, 0.2), transparent 60%),
+    radial-gradient(900px 600px at 90% 0%, rgba(51, 230, 191, 0.18), transparent 55%),
+    #0b0e14;
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(51, 230, 191, 0.35);
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(19, 28, 43, 0.9), rgba(11, 16, 24, 0.7));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.cta-button {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-ink font-semibold transition hover:translate-y-[-2px] hover:shadow-glow;
+}
+
+.ghost-button {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-6 py-3 text-white/90 transition hover:border-accent hover:text-accent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
