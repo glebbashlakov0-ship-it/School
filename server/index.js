@@ -74,6 +74,54 @@ app.get("/api/applications", async (_req, res) => {
   }
 });
 
+app.post("/api/messages", async (req, res) => {
+  try {
+    if (!pool) {
+      return res.status(500).json({ error: "Database not configured." });
+    }
+    const { name, email, phone, message } = req.body || {};
+    if (!name || !email || !phone || !message) {
+      return res.status(400).json({ error: "Missing required fields." });
+    }
+
+    const query = `
+      INSERT INTO messages (name, email, phone, message)
+      VALUES ($1, $2, $3, $4)
+      RETURNING id, created_at
+    `;
+    const values = [name, email, phone, message];
+    const { rows } = await pool.query(query, values);
+    return res.status(201).json({ ok: true, data: rows[0] });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      error: "Failed to save message.",
+      detail: err?.message
+    });
+  }
+});
+
+app.get("/api/messages", async (_req, res) => {
+  try {
+    if (!pool) {
+      return res.status(500).json({ error: "Database not configured." });
+    }
+    const query = `
+      SELECT id, name, email, phone, message, created_at
+      FROM messages
+      ORDER BY created_at DESC
+    `;
+    const { rows } = await pool.query(query);
+    return res.json({ data: rows });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      error: "Failed to load messages.",
+      detail: err?.message
+    });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`API server listening on http://127.0.0.1:${PORT}`);
 });

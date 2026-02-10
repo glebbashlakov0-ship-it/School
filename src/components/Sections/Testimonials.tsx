@@ -1,4 +1,4 @@
-import { useRef } from "react";
+﻿import { useRef } from "react";
 import { testimonials } from "../../data/testimonials";
 
 export default function Testimonials() {
@@ -25,7 +25,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-6xl px-6 pb-20">
+    <section id="testimonials" className="mx-auto w-full max-w-7xl px-6 py-20">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <div className="text-sm uppercase tracking-[0.3em] text-white/50">
@@ -54,15 +54,15 @@ export default function Testimonials() {
       </div>
       <div
         ref={trackRef}
-        className="no-scrollbar mt-8 flex gap-6 overflow-x-auto scroll-smooth pb-4"
+        className="no-scrollbar relative mt-8 flex gap-6 overflow-x-auto overflow-y-visible scroll-smooth py-3 pr-6"
         style={{ scrollSnapType: "x mandatory" }}
       >
         {testimonials.map((item) => (
           <div
             key={item.name}
-            className="glass-card min-w-[280px] snap-start rounded-3xl p-6 md:min-w-[320px]"
+            className="glass-card no-glow relative z-0 min-w-[280px] snap-start rounded-3xl p-6 md:min-w-[320px]"
           >
-            <p className="text-sm text-white/70">“{item.quote}”</p>
+            <p className="text-sm text-white/70">{item.quote}</p>
             <div className="mt-4 flex items-center gap-3">
               <img
                 src={item.avatar}
@@ -80,3 +80,4 @@ export default function Testimonials() {
     </section>
   );
 }
+

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+﻿import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,7 +64,7 @@ export default function ApplyPage() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-5xl px-6 py-16">
+    <section className="mx-auto w-full max-w-6xl px-6 py-16">
       <div className="glass-card rounded-3xl p-8 md:p-12">
         <div className="text-sm uppercase tracking-[0.3em] text-white/50">
           Registration
@@ -73,7 +73,7 @@ export default function ApplyPage() {
           Apply for free access
         </h1>
         <p className="mt-3 text-white/60">
-          Fill in the form below. Your selected course is already attached.
+          Fill in the form below and choose your course.
         </p>
 
         <form
@@ -133,11 +133,22 @@ export default function ApplyPage() {
             )}
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm text-white/70">Selected Course</label>
-            <div className="mt-2 rounded-2xl border border-white/10 bg-ink/70 px-4 py-3 text-white">
-              {defaultCourse}
-            </div>
-            <input type="hidden" {...register("course")} />
+            <label className="text-sm text-white/70">Course</label>
+            <select
+              {...register("course")}
+              className="mt-2 w-full rounded-2xl border border-white/10 bg-ink/70 px-4 py-3 text-white"
+            >
+              {courses.map((course) => (
+                <option key={course.id} value={course.title}>
+                  {course.title}
+                </option>
+              ))}
+            </select>
+            {errors.course && (
+              <div className="mt-2 text-xs text-ember">
+                {errors.course.message}
+              </div>
+            )}
           </div>
           <button
             type="submit"
@@ -163,3 +174,4 @@ export default function ApplyPage() {
     </section>
   );
 }
+

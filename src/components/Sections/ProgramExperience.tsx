@@ -1,4 +1,4 @@
-const pricing = [
+﻿const pricing = [
   { title: "Level 1 — Crypto Starter", price: "$400", note: "Beginner" },
   { title: "Level 2 — Crypto Holder", price: "$900", note: "Intermediate" },
   { title: "Level 3 — Crypto Investor", price: "$1,300", note: "Advanced" },
@@ -19,7 +19,7 @@ const perks = [
 
 export default function ProgramExperience() {
   return (
-    <section className="mx-auto w-full max-w-6xl px-6 pb-20">
+    <section className="mx-auto w-full max-w-7xl px-6 py-20">
       <div className="grid gap-10 md:grid-cols-[1.1fr,0.9fr]">
         <div className="glass-card rounded-3xl p-6 md:p-8">
           <img
@@ -70,18 +70,25 @@ export default function ProgramExperience() {
                     <div className="text-sm font-semibold">{item.title}</div>
                     <div className="text-xs text-white/50">{item.note}</div>
                   </div>
-                  <div className="text-xl font-semibold text-accent">
-                    {item.price}
+                  <div className="text-right">
+                    <div className="text-sm text-white/40 line-through">
+                      {item.price}
+                    </div>
+                    <div className="text-lg font-semibold text-accent">
+                      Free 24 slots
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
           <div className="mt-6 rounded-2xl border border-white/10 bg-ink/70 p-4 text-sm text-white/60">
-            Limited free access remains available for the next cohort.
+            Free 24 slots available for the next cohort.
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+

@@ -1,5 +1,5 @@
 import Hero from "../components/Sections/Hero";
-import WhyChooseUs from "../components/Sections/WhyChooseUs";
+import AboutUs from "../components/Sections/AboutUs";
 import CoursesPreview from "../components/Sections/CoursesPreview";
 import Testimonials from "../components/Sections/Testimonials";
 import CTASection from "../components/Sections/CTASection";
@@ -9,7 +9,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <WhyChooseUs />
+      <AboutUs />
       <ProgramExperience />
       <CoursesPreview />
       <Testimonials />
