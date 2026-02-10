@@ -66,10 +66,10 @@ export default function Header() {
                 >
                   {item.label}
                 </a>
-              ) : (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
+            ) : (
+              <NavLink
+                key={item.to ?? item.label}
+                to={item.to ?? "/"}
                   className={({ isActive }) =>
                     `text-sm font-medium transition ${
                       isActive ? "text-accent" : "text-white/80 hover:text-white"
