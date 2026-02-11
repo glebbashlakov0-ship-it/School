@@ -127,7 +127,7 @@ export default function CoursesPreview() {
                   </div>
                 </div>
                 <a
-                  href="/#courses"
+                  href={`/apply?course=${encodeURIComponent(course.title)}`}
                   className="cta-button mt-4 w-full md:mt-0 md:w-auto"
                 >
                   Get Free Access
