@@ -34,7 +34,7 @@
         </div>
         <div className="rounded-3xl">
           <img
-            src="/hero.jpg"
+            src="/hero.png"
             alt="Crypto learning"
             className="h-[320px] w-full rounded-3xl object-contain sm:h-[420px] md:h-[520px] lg:h-[620px]"
           />
