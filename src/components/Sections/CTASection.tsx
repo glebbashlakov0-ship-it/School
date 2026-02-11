@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 
 export default function CTASection() {
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -46,12 +45,14 @@ export default function CTASection() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-4">
-            <Link to="/apply" className="cta-button">
+            <a href="/#courses" className="cta-button">
               Apply for Free Access
-            </Link>
+            </a>
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+

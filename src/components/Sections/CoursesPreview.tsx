@@ -1,5 +1,4 @@
 ﻿import { useState } from "react";
-import { Link } from "react-router-dom";
 import { courses } from "../../data/courses";
 
 export default function CoursesPreview() {
@@ -124,15 +123,15 @@ export default function CoursesPreview() {
                   </div>
                   <div className="text-2xl font-semibold text-accent">FREE</div>
                   <div className="text-[11px] uppercase tracking-[0.2em] text-accent">
-                    Free 24 slots available
+                    Free {course.slots} slots available
                   </div>
                 </div>
-                <Link
-                  to={`/apply?course=${encodeURIComponent(course.title)}`}
+                <a
+                  href="/#courses"
                   className="cta-button mt-4 w-full md:mt-0 md:w-auto"
                 >
                   Get Free Access
-                </Link>
+                </a>
               </div>
             </div>
           </div>

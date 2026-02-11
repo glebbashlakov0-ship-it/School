@@ -34,7 +34,7 @@
           <a className="mt-1 block hover:text-white" href="/#testimonials">
             Testimonials
           </a>
-          <a className="mt-1 block hover:text-white" href="/apply">
+          <a className="mt-1 block hover:text-white" href="/#courses">
             Apply
           </a>
         </div>

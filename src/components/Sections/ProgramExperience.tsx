@@ -1,12 +1,13 @@
 ﻿const pricing = [
-  { title: "Level 1 — Crypto Starter", price: "$400", note: "Beginner" },
-  { title: "Level 2 — Crypto Holder", price: "$900", note: "Intermediate" },
-  { title: "Level 3 — Crypto Investor", price: "$1,300", note: "Advanced" },
-  { title: "Level 4 — Crypto Strategist", price: "$1,800", note: "Expert" },
+  { title: "Level 1 — Crypto Starter", price: "$400", note: "Beginner", slots: 24 },
+  { title: "Level 2 — Crypto Holder", price: "$900", note: "Intermediate", slots: 40 },
+  { title: "Level 3 — Crypto Investor", price: "$1,300", note: "Advanced", slots: 36 },
+  { title: "Level 4 — Crypto Strategist", price: "$1,800", note: "Expert", slots: 32 },
   {
     title: "Level 5 — Crypto Elite / Crypto Capital",
     price: "$2,500",
-    note: "Pro"
+    note: "Pro",
+    slots: 28
   }
 ];
 
@@ -75,7 +76,7 @@ export default function ProgramExperience() {
                       {item.price}
                     </div>
                     <div className="text-lg font-semibold text-accent">
-                      Free 24 slots
+                      Free {item.slots} slots
                     </div>
                   </div>
                 </div>
@@ -83,12 +84,14 @@ export default function ProgramExperience() {
             ))}
           </div>
           <div className="mt-6 rounded-2xl border border-white/10 bg-ink/70 p-4 text-sm text-white/60">
-            Free 24 slots available for the next cohort.
+            Free slots available for the next cohort.
           </div>
         </div>
       </div>
     </section>
   );
 }
+
+
 
 

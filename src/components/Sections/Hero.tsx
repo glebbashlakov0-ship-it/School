@@ -1,6 +1,4 @@
-﻿import { Link } from "react-router-dom";
-
-export default function Hero() {
+﻿export default function Hero() {
   const facts = [
     { value: "12k+", label: "Students trained" },
     { value: "5", label: "Level program" },
@@ -29,14 +27,14 @@ export default function Hero() {
             and claim free access while slots are open.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link to="/apply" className="cta-button">
+            <a href="/#courses" className="cta-button">
               Apply for Free Access
-            </Link>
+            </a>
           </div>
         </div>
         <div className="rounded-3xl">
           <img
-            src="/hero.png"
+            src="/hero.jpg"
             alt="Crypto learning"
             className="h-[320px] w-full rounded-3xl object-contain sm:h-[420px] md:h-[520px] lg:h-[620px]"
           />
@@ -65,4 +63,5 @@ export default function Hero() {
     </section>
   );
 }
+
 

@@ -125,19 +125,31 @@ export default function AdminPage() {
 
   if (!isAuthed) {
     return (
-      <div>
-        <form onSubmit={handleLogin}>
-          <div>
-            <label>Login</label>
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "24px"
+        }}
+      >
+        <form
+          onSubmit={handleLogin}
+          style={{ display: "grid", gap: "12px", width: "100%", maxWidth: "360px" }}
+        >
+          <div style={{ fontWeight: 600 }}>Admin Login</div>
+          <label style={{ display: "grid", gap: "6px" }}>
+            <span>Login</span>
             <input
               value={login.user}
               onChange={(e) => setLogin({ ...login, user: e.target.value })}
               placeholder="Admin login"
               required
             />
-          </div>
-          <div>
-            <label>Password</label>
+          </label>
+          <label style={{ display: "grid", gap: "6px" }}>
+            <span>Password</span>
             <input
               type="password"
               value={login.pass}
@@ -145,7 +157,7 @@ export default function AdminPage() {
               placeholder="Password"
               required
             />
-          </div>
+          </label>
           {error && <div>{error}</div>}
           <button type="submit">Enter</button>
         </form>

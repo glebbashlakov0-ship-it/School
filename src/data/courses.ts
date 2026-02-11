@@ -5,6 +5,7 @@ export type CourseLevel = {
   description: string;
   highlights: string[];
   oldPrice: string;
+  slots: number;
   who: string[];
   learns: string[];
 };
@@ -22,6 +23,7 @@ export const courses: CourseLevel[] = [
       "Avoid beginner mistakes and scams"
     ],
     oldPrice: "$400",
+    slots: 24,
     who: [
       "Time holding crypto: 0–6 months",
       "Crypto assets: up to 2 assets",
@@ -46,6 +48,7 @@ export const courses: CourseLevel[] = [
       "Risk management mindset"
     ],
     oldPrice: "$900",
+    slots: 40,
     who: [
       "Time holding: 6–18 months",
       "Crypto assets: 3–5 assets",
@@ -70,6 +73,7 @@ export const courses: CourseLevel[] = [
       "Advanced risk management"
     ],
     oldPrice: "$1,300",
+    slots: 36,
     who: [
       "Time holding: 1.5 – 3 years",
       "Crypto assets: 6–10 assets",
@@ -94,6 +98,7 @@ export const courses: CourseLevel[] = [
       "Advanced security setups"
     ],
     oldPrice: "$1,800",
+    slots: 32,
     who: [
       "Time holding: 3–5 years",
       "Crypto assets: 10–20 assets",
@@ -118,6 +123,7 @@ export const courses: CourseLevel[] = [
       "Private deals and long-term preservation"
     ],
     oldPrice: "$2,500",
+    slots: 28,
     who: [
       "Time holding: 5+ years",
       "Crypto assets: 20+ assets",

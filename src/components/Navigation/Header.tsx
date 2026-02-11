@@ -7,7 +7,7 @@ const navItems = [
   { label: "Courses", href: "/#courses" },
   { label: "Testimonials", href: "/#testimonials" },
   { label: "Contact", to: "/contact" },
-  { label: "Apply", to: "/apply" }
+  { label: "Apply", href: "/#courses" }
 ];
 
 export default function Header() {
@@ -22,17 +22,45 @@ export default function Header() {
             alt="Nexora"
             className="h-9 w-9 rounded-full object-cover"
           />
-          <div className="font-display text-lg font-semibold tracking-tight">
+          <div className="font-display text-lg font-semibold tracking-tight md:hidden">
             Nexora
           </div>
+          <div className="hidden font-display text-lg font-semibold tracking-tight md:block">
+            Nexora Crypto Academy
+          </div>
         </Link>
+        <nav className="hidden items-center gap-6 md:flex">
+          {navItems.map((item) =>
+            item.href ? (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-white/70 transition hover:text-white"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <NavLink
+                key={item.to ?? item.label}
+                to={item.to ?? "/"}
+                className={({ isActive }) =>
+                  `text-sm font-medium transition ${
+                    isActive ? "text-accent" : "text-white/70 hover:text-white"
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            )
+          )}
+        </nav>
         <div className="flex items-center gap-4">
-          <Link to="/apply" className="cta-button">
+          <a href="/#courses" className="cta-button">
             Get Free
-          </Link>
+          </a>
           <button
             type="button"
-            className="relative z-30 inline-flex items-center justify-center p-2 text-accent drop-shadow-[0_0_8px_rgba(51,230,191,0.55)] transition hover:text-white"
+            className="relative z-30 inline-flex items-center justify-center p-2 text-accent drop-shadow-[0_0_8px_rgba(51,230,191,0.55)] transition hover:text-white md:hidden"
             aria-label="Open menu"
             onClick={() => setIsOpen((prev) => !prev)}
           >
@@ -54,7 +82,7 @@ export default function Header() {
         </div>
       </div>
       {isOpen && (
-        <div className="border-t border-white/5 bg-ink/95">
+        <div className="border-t border-white/5 bg-ink/95 md:hidden">
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 py-6">
             {navItems.map((item) =>
               item.href ? (
@@ -81,9 +109,13 @@ export default function Header() {
                 </NavLink>
               )
             )}
-            <Link to="/apply" className="cta-button w-full" onClick={() => setIsOpen(false)}>
+            <a
+              href="/#courses"
+              className="cta-button w-full"
+              onClick={() => setIsOpen(false)}
+            >
               Get Free
-            </Link>
+            </a>
           </div>
         </div>
       )}
