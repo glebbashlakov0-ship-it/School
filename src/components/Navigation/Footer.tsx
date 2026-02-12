@@ -40,8 +40,12 @@
         </div>
         <div className="text-sm text-white/60">
           <div className="font-semibold text-white">Links</div>
-          <div className="mt-2">Privacy Policy</div>
-          <div className="mt-1">Terms & Conditions</div>
+          <a className="mt-2 block hover:text-white" href="/privacy">
+            Privacy Policy
+          </a>
+          <a className="mt-1 block hover:text-white" href="/terms">
+            Terms & Conditions
+          </a>
         </div>
       </div>
     </footer>

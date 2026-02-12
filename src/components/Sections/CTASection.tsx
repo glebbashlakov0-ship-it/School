@@ -1,4 +1,6 @@
-﻿import { useEffect, useRef, useState } from "react";
+﻿"use client";
+
+import { useEffect, useRef, useState } from "react";
 
 export default function CTASection() {
   const cardRef = useRef<HTMLDivElement | null>(null);
@@ -54,5 +56,6 @@ export default function CTASection() {
     </section>
   );
 }
+
 
 

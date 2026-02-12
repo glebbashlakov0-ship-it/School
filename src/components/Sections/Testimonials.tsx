@@ -1,4 +1,6 @@
-﻿import { useRef } from "react";
+﻿"use client";
+
+import { useRef } from "react";
 import { testimonials } from "../../data/testimonials";
 
 export default function Testimonials() {
@@ -62,7 +64,17 @@ export default function Testimonials() {
             key={item.name}
             className="glass-card no-glow relative z-0 min-w-[280px] snap-start rounded-3xl p-6 md:min-w-[320px]"
           >
-            <p className="text-sm text-white/70">{item.quote}</p>
+            <div className="flex items-center gap-1 text-accent">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <span
+                  key={`${item.name}-star-${index}`}
+                  className={index < item.rating ? "opacity-100" : "opacity-30"}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
+            <p className="mt-3 text-sm text-white/70">{item.quote}</p>
             <div className="mt-4 flex items-center gap-3">
               <img
                 src={item.avatar}
@@ -80,4 +92,5 @@ export default function Testimonials() {
     </section>
   );
 }
+
 

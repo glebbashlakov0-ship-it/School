@@ -1,3 +1,5 @@
+﻿"use client";
+
 import { useEffect, useMemo, useRef, useState } from "react";
 import { formatDateTime } from "../lib/format";
 import { courses } from "../data/courses";
@@ -23,8 +25,8 @@ type Message = {
   created_at: string;
 };
 
-const ADMIN_USER = import.meta.env.VITE_ADMIN_USER as string | undefined;
-const ADMIN_PASS = import.meta.env.VITE_ADMIN_PASS as string | undefined;
+const ADMIN_USER = process.env.NEXT_PUBLIC_ADMIN_USER as string | undefined;
+const ADMIN_PASS = process.env.NEXT_PUBLIC_ADMIN_PASS as string | undefined;
 const SESSION_KEY = "crypto-school-admin";
 
 export default function AdminPage() {
@@ -354,3 +356,4 @@ export default function AdminPage() {
     </section>
   );
 }
+

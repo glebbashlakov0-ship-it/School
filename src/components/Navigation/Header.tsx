@@ -1,5 +1,8 @@
+"use client";
+
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -12,11 +15,12 @@ const navItems = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-20 border-b border-white/5 bg-ink/80 backdrop-blur">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <img
             src="/logo.jpg"
             alt="Nexora"
@@ -33,24 +37,24 @@ export default function Header() {
           {navItems.map((item) =>
             item.href ? (
               <a
-                key={item.href}
+                key={`${item.label}-${item.href}`}
                 href={item.href}
                 className="text-sm font-medium text-white/70 transition hover:text-white"
               >
                 {item.label}
               </a>
             ) : (
-              <NavLink
-                key={item.to ?? item.label}
-                to={item.to ?? "/"}
-                className={({ isActive }) =>
-                  `text-sm font-medium transition ${
-                    isActive ? "text-accent" : "text-white/70 hover:text-white"
-                  }`
-                }
+              <Link
+                key={`${item.label}-${item.to ?? "/"}`}
+                href={item.to ?? "/"}
+                className={`text-sm font-medium transition ${
+                  pathname === item.to
+                    ? "text-accent"
+                    : "text-white/70 hover:text-white"
+                }`}
               >
                 {item.label}
-              </NavLink>
+              </Link>
             )
           )}
         </nav>
@@ -86,27 +90,27 @@ export default function Header() {
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-6 py-6">
             {navItems.map((item) =>
               item.href ? (
-                <a
-                  key={item.href}
-                  href={item.href}
+              <a
+                key={`mobile-${item.label}-${item.href}`}
+                href={item.href}
                   className="text-sm font-medium text-white/80 transition hover:text-white"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
                 </a>
-            ) : (
-              <NavLink
-                key={item.to ?? item.label}
-                to={item.to ?? "/"}
-                  className={({ isActive }) =>
-                    `text-sm font-medium transition ${
-                      isActive ? "text-accent" : "text-white/80 hover:text-white"
-                    }`
-                  }
+              ) : (
+                <Link
+                  key={`mobile-${item.label}-${item.to ?? "/"}`}
+                  href={item.to ?? "/"}
+                  className={`text-sm font-medium transition ${
+                    pathname === item.to
+                      ? "text-accent"
+                      : "text-white/80 hover:text-white"
+                  }`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
-                </NavLink>
+                </Link>
               )
             )}
             <a

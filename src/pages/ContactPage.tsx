@@ -1,3 +1,5 @@
+﻿"use client";
+
 import { useState } from "react";
 
 export default function ContactPage() {
@@ -125,3 +127,5 @@ export default function ContactPage() {
     </section>
   );
 }
+
+

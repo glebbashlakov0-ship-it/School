@@ -1,8 +1,10 @@
-﻿import { useEffect, useMemo, useState } from "react";
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "next/navigation";
 import { courses } from "../data/courses";
 
 const schema = z.object({
@@ -11,17 +13,32 @@ const schema = z.object({
   email: z.string().email("Enter a valid email."),
   phone: z.string().min(6, "Phone number is required."),
   course: z.string().min(1, "Course is required."),
-  exchanges: z.array(z.string()).min(1, "Select at least one exchange."),
+  exchangesChoice: z.string().min(1, "Select one exchange."),
   exchangesOther: z.string().optional(),
-  wallets: z.array(z.string()).min(1, "Select at least one wallet."),
+  walletsChoice: z.string().min(1, "Select one wallet."),
   walletsOther: z.string().optional()
+}).superRefine((values, ctx) => {
+  if (values.exchangesChoice === "Other" && !values.exchangesOther?.trim()) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["exchangesOther"],
+      message: "Please specify the exchange."
+    });
+  }
+  if (values.walletsChoice === "Other" && !values.walletsOther?.trim()) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["walletsOther"],
+      message: "Please specify the wallet."
+    });
+  }
 });
 
 type FormValues = z.infer<typeof schema>;
 
 export default function ApplyPage() {
-  const [searchParams] = useSearchParams();
-  const courseQuery = searchParams.get("course") ?? "";
+  const searchParams = useSearchParams();
+  const courseQuery = searchParams?.get("course") ?? "";
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState<string>("");
 
@@ -48,14 +65,16 @@ export default function ApplyPage() {
   }, [defaultCourse, setValue]);
 
   const onSubmit = async (values: FormValues) => {
-    const exchanges = [...values.exchanges];
-    if (values.exchangesOther?.trim()) {
-      exchanges.push(values.exchangesOther.trim());
-    }
-    const wallets = [...values.wallets];
-    if (values.walletsOther?.trim()) {
-      wallets.push(values.walletsOther.trim());
-    }
+    const exchanges = [
+      values.exchangesChoice === "Other"
+        ? values.exchangesOther?.trim() || "Other"
+        : values.exchangesChoice
+    ];
+    const wallets = [
+      values.walletsChoice === "Other"
+        ? values.walletsOther?.trim() || "Other"
+        : values.walletsChoice
+    ];
 
     setStatus("idle");
     setMessage("");
@@ -179,11 +198,7 @@ export default function ApplyPage() {
                 "Other"
               ].map((item) => (
                 <label key={item} className="flex items-center gap-2 text-sm text-white/70">
-                  <input
-                    type="checkbox"
-                    value={item}
-                    {...register("exchanges")}
-                  />
+                  <input type="radio" value={item} {...register("exchangesChoice")} />
                   <span>{item}</span>
                 </label>
               ))}
@@ -191,11 +206,16 @@ export default function ApplyPage() {
             <input
               {...register("exchangesOther")}
               className="mt-3 w-full rounded-2xl border border-white/10 bg-ink/70 px-4 py-3 text-white"
-              placeholder="Other exchange (optional)"
+              placeholder="Other exchange"
             />
-            {errors.exchanges && (
+            {errors.exchangesChoice && (
               <div className="mt-2 text-xs text-ember">
-                {errors.exchanges.message}
+                {errors.exchangesChoice.message}
+              </div>
+            )}
+            {errors.exchangesOther && (
+              <div className="mt-2 text-xs text-ember">
+                {errors.exchangesOther.message}
               </div>
             )}
           </div>
@@ -214,11 +234,7 @@ export default function ApplyPage() {
                 "Other"
               ].map((item) => (
                 <label key={item} className="flex items-center gap-2 text-sm text-white/70">
-                  <input
-                    type="checkbox"
-                    value={item}
-                    {...register("wallets")}
-                  />
+                  <input type="radio" value={item} {...register("walletsChoice")} />
                   <span>{item}</span>
                 </label>
               ))}
@@ -226,11 +242,16 @@ export default function ApplyPage() {
             <input
               {...register("walletsOther")}
               className="mt-3 w-full rounded-2xl border border-white/10 bg-ink/70 px-4 py-3 text-white"
-              placeholder="Other wallet (optional)"
+              placeholder="Other wallet"
             />
-            {errors.wallets && (
+            {errors.walletsChoice && (
               <div className="mt-2 text-xs text-ember">
-                {errors.wallets.message}
+                {errors.walletsChoice.message}
+              </div>
+            )}
+            {errors.walletsOther && (
+              <div className="mt-2 text-xs text-ember">
+                {errors.walletsOther.message}
               </div>
             )}
           </div>
@@ -258,4 +279,3 @@ export default function ApplyPage() {
     </section>
   );
 }
-

@@ -1,4 +1,6 @@
-﻿import { useState } from "react";
+﻿"use client";
+
+import { useState } from "react";
 import { courses } from "../../data/courses";
 
 export default function CoursesPreview() {
@@ -140,4 +142,5 @@ export default function CoursesPreview() {
     </section>
   );
 }
+
 
