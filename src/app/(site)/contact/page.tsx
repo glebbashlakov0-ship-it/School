@@ -1,6 +1,6 @@
 "use client";
 
-import ContactPage from "../../../src/pages/ContactPage";
+import ContactPage from "../../../screens/ContactPage";
 
 export default function Page() {
   return <ContactPage />;
