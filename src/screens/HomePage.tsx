@@ -4,6 +4,7 @@ import CoursesPreview from "../components/Sections/CoursesPreview";
 import Testimonials from "../components/Sections/Testimonials";
 import CTASection from "../components/Sections/CTASection";
 import ProgramExperience from "../components/Sections/ProgramExperience";
+import Partners from "../components/Sections/Partners";
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <Hero />
       <AboutUs />
       <ProgramExperience />
+      <Partners />
       <CoursesPreview />
       <Testimonials />
       <CTASection />

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { courses } from "../data/courses";
 
 const schema = z.object({
@@ -38,6 +39,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function ApplyPage() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const courseQuery = searchParams?.get("course") ?? "";
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState<string>("");
@@ -89,6 +91,7 @@ export default function ApplyPage() {
       }
       setStatus("success");
       setMessage("Thank you! Our manager will contact you soon.");
+      router.push("/thanks");
     } catch (err) {
       setStatus("error");
       setMessage("Submission failed. Please try again later.");
