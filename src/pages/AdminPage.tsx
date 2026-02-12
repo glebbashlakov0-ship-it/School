@@ -9,6 +9,8 @@ type Application = {
   email: string;
   phone: string;
   course: string;
+  exchanges: string[];
+  wallets: string[];
   created_at: string;
 };
 
@@ -212,7 +214,7 @@ export default function AdminPage() {
                 </select>
               </div>
               <div className="mt-6 overflow-x-auto rounded-3xl border border-white/10">
-                <table className="w-full min-w-[700px] text-left text-sm">
+                <table className="w-full min-w-[900px] text-left text-sm">
                   <thead className="bg-white/5 text-xs uppercase tracking-[0.2em] text-white/50">
                     <tr>
                       <th className="px-4 py-3">First Name</th>
@@ -220,6 +222,8 @@ export default function AdminPage() {
                       <th className="px-4 py-3">Email</th>
                       <th className="px-4 py-3">Phone</th>
                       <th className="px-4 py-3">Course</th>
+                      <th className="px-4 py-3">Exchanges</th>
+                      <th className="px-4 py-3">Wallets</th>
                       <th className="px-4 py-3">Date</th>
                     </tr>
                   </thead>
@@ -232,13 +236,19 @@ export default function AdminPage() {
                         <td className="px-4 py-3">{item.phone}</td>
                         <td className="px-4 py-3">{item.course}</td>
                         <td className="px-4 py-3">
+                          {(item.exchanges ?? []).join(", ")}
+                        </td>
+                        <td className="px-4 py-3">
+                          {(item.wallets ?? []).join(", ")}
+                        </td>
+                        <td className="px-4 py-3">
                           {formatDateTime(item.created_at)}
                         </td>
                       </tr>
                     ))}
                     {filtered.length === 0 && (
                       <tr>
-                        <td className="px-4 py-6 text-white/60" colSpan={6}>
+                        <td className="px-4 py-6 text-white/60" colSpan={8}>
                           No applications yet.
                         </td>
                       </tr>

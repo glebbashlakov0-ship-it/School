@@ -10,7 +10,11 @@ const schema = z.object({
   lastName: z.string().min(1, "Last name is required."),
   email: z.string().email("Enter a valid email."),
   phone: z.string().min(6, "Phone number is required."),
-  course: z.string().min(1, "Course is required.")
+  course: z.string().min(1, "Course is required."),
+  exchanges: z.array(z.string()).min(1, "Select at least one exchange."),
+  exchangesOther: z.string().optional(),
+  wallets: z.array(z.string()).min(1, "Select at least one wallet."),
+  walletsOther: z.string().optional()
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -44,13 +48,22 @@ export default function ApplyPage() {
   }, [defaultCourse, setValue]);
 
   const onSubmit = async (values: FormValues) => {
+    const exchanges = [...values.exchanges];
+    if (values.exchangesOther?.trim()) {
+      exchanges.push(values.exchangesOther.trim());
+    }
+    const wallets = [...values.wallets];
+    if (values.walletsOther?.trim()) {
+      wallets.push(values.walletsOther.trim());
+    }
+
     setStatus("idle");
     setMessage("");
     try {
       const response = await fetch("/api/applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values)
+        body: JSON.stringify({ ...values, exchanges, wallets })
       });
       if (!response.ok) {
         throw new Error("Request failed");
@@ -147,6 +160,77 @@ export default function ApplyPage() {
             {errors.course && (
               <div className="mt-2 text-xs text-ember">
                 {errors.course.message}
+              </div>
+            )}
+          </div>
+          <div className="md:col-span-2">
+            <label className="text-sm text-white/70">
+              Which exchanges do you use to store or manage digital assets?
+            </label>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {[
+                "CoinSpot",
+                "Swyftx",
+                "Independent Reserve",
+                "CoinJar",
+                "Binance",
+                "Kraken",
+                "Bybit",
+                "Other"
+              ].map((item) => (
+                <label key={item} className="flex items-center gap-2 text-sm text-white/70">
+                  <input
+                    type="checkbox"
+                    value={item}
+                    {...register("exchanges")}
+                  />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </div>
+            <input
+              {...register("exchangesOther")}
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-ink/70 px-4 py-3 text-white"
+              placeholder="Other exchange (optional)"
+            />
+            {errors.exchanges && (
+              <div className="mt-2 text-xs text-ember">
+                {errors.exchanges.message}
+              </div>
+            )}
+          </div>
+          <div className="md:col-span-2">
+            <label className="text-sm text-white/70">
+              Which wallets or custody solutions do you use to secure your assets?
+            </label>
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {[
+                "MetaMask",
+                "Trust Wallet",
+                "Ledger",
+                "Trezor",
+                "Safe (multisig)",
+                "Phantom",
+                "Other"
+              ].map((item) => (
+                <label key={item} className="flex items-center gap-2 text-sm text-white/70">
+                  <input
+                    type="checkbox"
+                    value={item}
+                    {...register("wallets")}
+                  />
+                  <span>{item}</span>
+                </label>
+              ))}
+            </div>
+            <input
+              {...register("walletsOther")}
+              className="mt-3 w-full rounded-2xl border border-white/10 bg-ink/70 px-4 py-3 text-white"
+              placeholder="Other wallet (optional)"
+            />
+            {errors.wallets && (
+              <div className="mt-2 text-xs text-ember">
+                {errors.wallets.message}
               </div>
             )}
           </div>

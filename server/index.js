@@ -31,17 +31,26 @@ app.post("/api/applications", async (req, res) => {
     if (!pool) {
       return res.status(500).json({ error: "Database not configured." });
     }
-    const { firstName, lastName, email, phone, course } = req.body || {};
-    if (!firstName || !lastName || !email || !phone || !course) {
+    const { firstName, lastName, email, phone, course, exchanges, wallets } =
+      req.body || {};
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !phone ||
+      !course ||
+      !Array.isArray(exchanges) ||
+      !Array.isArray(wallets)
+    ) {
       return res.status(400).json({ error: "Missing required fields." });
     }
 
     const query = `
-      INSERT INTO applications (first_name, last_name, email, phone, course)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO applications (first_name, last_name, email, phone, course, exchanges, wallets)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING id, created_at
     `;
-    const values = [firstName, lastName, email, phone, course];
+    const values = [firstName, lastName, email, phone, course, exchanges, wallets];
     const { rows } = await pool.query(query, values);
     return res.status(201).json({ ok: true, data: rows[0] });
   } catch (err) {
@@ -59,7 +68,7 @@ app.get("/api/applications", async (_req, res) => {
       return res.status(500).json({ error: "Database not configured." });
     }
     const query = `
-      SELECT id, first_name, last_name, email, phone, course, created_at
+      SELECT id, first_name, last_name, email, phone, course, exchanges, wallets, created_at
       FROM applications
       ORDER BY created_at DESC
     `;
